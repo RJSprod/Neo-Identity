@@ -1,0 +1,28 @@
+Neo Identity - Krea 2 Identity Edit V2 for Forge Neo
+Copyright 2026 RJSprod
+
+This extension is a port of the Krea 2 Identity Edit inference recipe:
+
+  ComfyUI-Krea2Edit (https://github.com/lbouaraba/comfyui-krea2edit)
+  Copyright conradlocke / lbouaraba, licensed under the Apache License, Version 2.0.
+  The edit forward's token sequence and placement, the fit and crop reference
+  geometry, the grounded encoding and the attention boost's semantics are
+  reimplemented from its __init__.py (v2.0.0, commit 13ef60f).
+
+  krea2edit-trainer (https://github.com/lbouaraba/krea2edit-trainer)
+  Apache License, Version 2.0. Its docs/GEOMETRY.md is the geometry contract
+  the fixtures in tests/test_geometry.py are worked from.
+
+The tests apply the rotary embedding as FLUX does
+(https://github.com/black-forest-labs/flux, Apache License, Version 2.0) in
+place of the host's comfy-kitchen kernel.
+
+The extension runs inside SD WebUI Forge Neo
+(https://github.com/Haoming02/sd-webui-forge-classic, branch neo, AGPL-3.0)
+and calls its classes at runtime; none of its source is copied here. The tests
+read the host's own files from a checkout the user points them at.
+
+The Krea 2 model and the Krea 2 Identity Edit LoRA weights are distributed
+separately under their own terms (the Krea 2 Community License and the terms on
+https://huggingface.co/conradlocke/krea2-identity-edit) and are not part of
+this repository.
