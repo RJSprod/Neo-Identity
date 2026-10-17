@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install CPU torch and the test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch
+          python -m pip install einops numpy pillow pytest pytest-xdist
+      - name: Fetch Forge Neo at the pinned commit
+        run: |
+          mkdir -p "$RUNNER_TEMP/forge-neo" && cd "$RUNNER_TEMP/forge-neo"
+          git init -q && git remote add origin https://github.com/Haoming02/sd-webui-forge-classic
+          git fetch -q --depth 1 origin 46af880c003d31846bbea984ce00fc7be247ce5b
+          git checkout -q FETCH_HEAD
+      - name: Run the suite against the real transformer
+        env:
+          NEO_IDENTITY_FORGE_ROOT: ${{ runner.temp }}/forge-neo
+        run: python tools/run_tests.py
